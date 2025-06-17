@@ -18,7 +18,7 @@ function App() {
     { id: 2, name: 'Fries' },
     { id: 3, name: 'Water' },
   ];
-  // Products state lifted up, with categoryId as foreign key and isInCart property
+  
   const [products, setProducts] = useState([
     { id: 1, name: 'Larger Burger', price: 90, count: 0, categoryId: 1, isInCart: false },
     { id: 2, name: 'Larger Fries', price: 40, count: 0, categoryId: 2, isInCart: false },
@@ -26,31 +26,31 @@ function App() {
     { id: 4, name: 'Medium Burger', price: 80, count: 0, categoryId: 1, isInCart: false },
     { id: 5, name: 'Medium Fries', price: 30, count: 0, categoryId: 2, isInCart: false },
     { id: 6, name: 'Medium Water', price: 15, count: 0, categoryId: 3, isInCart: false },
+    { id: 7, name: 'Small Burger', price: 80, count: 0, categoryId: 1, isInCart: false },
+    { id: 8, name: 'Small Fries', price: 30, count: 0, categoryId: 2, isInCart: false },
+    { id: 9, name: 'Small Water', price: 15, count: 0, categoryId: 3, isInCart: false },
   ]);
   const [selectedCategory, setSelectedCategory] = useState(0);
 
-  // Category handler using clone-edit-set pattern
   const handleSelectCategory = (id) => {
-    // clone (not needed for primitives)
+    // clone 
     let newCategory = id;
-    // edit (if needed)
+    // edit 
     // set state
     setSelectedCategory(newCategory);
   };
 
-  // Add to cart handler
   const handleAddToCart = (id) => {
     // clone
     let newProducts = [...products];
     // edit
     newProducts = newProducts.map(p =>
-      p.id === id ? { ...p, count: p.count + 1, isInCart: true } : p
+      p.id === id ? { ...p, count: p.count + 1, isInCart: !p.isInCart } : p
     );
     // set state
     setProducts(newProducts);
   };
 
-  // Cart handlers
   const handleIncrement = (id) => {
     // clone
     let newProducts = [...products];
